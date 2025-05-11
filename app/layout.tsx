@@ -4,6 +4,7 @@ import "./globals.css";
 
 import SideNav from "@/components/globals/SideNav/SideNavComponent";
 import TopNav from "@/components/globals/TopNav/TopNav";
+import { CommitProvider } from "@/context/CommitContext";
 
 
 const geistSans = Geist({
@@ -26,21 +27,25 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  noPadding = false,
 }: Readonly<{
   children: React.ReactNode;
+  noPadding?: boolean;
 }>) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen dark:from-zinc-900 dark:to-slate-800 dark:bg-gradient-to-br`}>
-        <div className="flex w-full h-screen">
-          <SideNav />
-          <div className="flex flex-1 flex-col overflow-auto">
-            <TopNav />
-            <div className="flex-1 overflow-auto p-8">
-              {children}
+        <CommitProvider>
+          <div className="flex w-full h-screen">
+            <SideNav />
+            <div className="flex flex-1 flex-col overflow-auto">
+              <TopNav />
+              <div className={`flex-1 overflow-auto ${noPadding ? '' : 'p-8'}`}>
+                {children}
+              </div>
             </div>
           </div>
-        </div>
+        </CommitProvider>
       </body>
     </html>
   );
