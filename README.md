@@ -16,13 +16,6 @@ This project is a single-page web application that displays commit history using
   <img src="https://img.shields.io/badge/Flask-Python-000000?logo=flask&logoColor=white" alt="Flask Python" />
 </p>
 
-
-<p align="center">
-  <a href="https://bauplan-ui-demo-nextjs.vercel.app/">
-    <img src="https://img.shields.io/badge/Live%20Demo-Click%20Here-brightgreen?style=for-the-badge" alt="Live Demo Badge" />
-  </a>
-</p>
-
 ## 💡 Motivation and Thinking
 
 The goal of this project was to build an intuitive and interactive way to explore commit histories from Bauplan environments. Given the developer-focused nature of Bauplan's platform, I prioritized clarity and responsiveness in the UI, as well as seamless integration with the Bauplan API using their official Python SDK. The inspiration for the UI and functionality is [GitKraken](https://www.gitkraken.com/). Al though very much a dumbed down version, I liked the ability to have your filters on the left side, more in depth information on right side and a focus of the timeline in the center. If I had more data and time I would have hoped to connect the commits as pipes like a lot of Git visuals.
