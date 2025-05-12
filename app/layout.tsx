@@ -27,11 +27,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  noPadding = false,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-  noPadding?: boolean;
-}>) {
+}) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen dark:from-zinc-900 dark:to-slate-800 dark:bg-gradient-to-br`}>
@@ -40,7 +38,7 @@ export default function RootLayout({
             <SideNav />
             <div className="flex flex-1 flex-col overflow-auto">
               <TopNav />
-              <div className={`flex-1 overflow-auto ${noPadding ? '' : 'p-8'}`}>
+              <div className="flex-1 overflow-auto p-4">
                 {children}
               </div>
             </div>

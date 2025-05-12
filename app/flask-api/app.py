@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 import os
 from dotenv import load_dotenv
@@ -14,8 +14,11 @@ client = bauplan.Client(api_key=os.getenv("BAUPLAN_API_KEY"))
 @app.route('/api/commits', methods=['GET'])
 def get_commits():
     try:
+        # Get the number of commits from the query parameter, default to 25
+        limit = int(request.args.get('limit', 25))
 
-        commits = client.get_commits(ref='main', limit=25)
+        # Fetch the commits using the specified limit
+        commits = client.get_commits(ref='main', limit=limit)
 
         commit_list = []
         for commit in commits:
