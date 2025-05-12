@@ -9,7 +9,15 @@ CORS(app)
 
 load_dotenv()
 
-client = bauplan.Client(api_key=os.getenv("BAUPLAN_API_KEY"))
+api_key = os.getenv("BAUPLAN_API_KEY")
+if not api_key:
+    raise ValueError("BAUPLAN_API_KEY environment variable is not set.")
+client = bauplan.Client(api_key=api_key)
+
+@app.route('/')
+def home():
+    return "Hello, Docker with Flask!"
+
 
 @app.route('/api/commits', methods=['GET'])
 def get_commits():
@@ -59,3 +67,10 @@ def get_commits():
 if __name__ == '__main__':
     # Run the Flask app
     app.run(debug=True, host='0.0.0.0', port=8000)
+
+@app.route('/api/check', methods=['GET'])
+def check_api_key():
+    api_key = os.getenv("BAUPLAN_API_KEY")
+    if api_key:
+        return jsonify({"status": "API key is set."}), 200
+    return jsonify({"error": "API key is not set."}), 500

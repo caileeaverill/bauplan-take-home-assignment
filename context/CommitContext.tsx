@@ -23,7 +23,7 @@ export function CommitProvider({ children }: { children: React.ReactNode }) {
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        fetch('http://localhost:8000/api/commits')
+        fetch(`http://localhost:8000/api/commits?key=${process.env.NEXT_PUBLIC_BAUPLAN_API_KEY}`)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error(`Error: ${response.statusText}`);
