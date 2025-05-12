@@ -98,17 +98,18 @@ export function groupCommitsByDate(commits: Commit[]): { title: string, commits:
 // Process each commit to add initials, shortened hash, and color
 export function processCommits(commits: any[]): any[] {
     return commits.map(commit => {
-        const name = Array.isArray(commit.authors) && commit.authors[0]?.name ? commit.authors[0]?.name : 'Unknown';
-        const hash = commit.ref?.hash;
+        const name = commit?.authors && Array.isArray(commit.authors) && commit.authors.length > 0 && commit.authors[0]?.name ? commit.authors[0]?.name : 'Unknown';
+        const hash = commit?.ref?.hash ?? 'unknown';
         const color = getConsistentColor(name)?.base ?? 'bg-gray-500';
 
-        commit.initials = getInitials(name) ?? 'NA';
-
-        if (hash) {
-            commit.shortenedHash = shortenHash(hash);
+        if (commit && typeof commit === 'object') {
+            commit.initials = getInitials(name) ?? 'NA';
+            commit.shortenedHash = hash ? shortenHash(hash) : 'unknown';
         }
 
-        commit.color = color;
+        if (commit && typeof commit === 'object') {
+            commit.color = color ?? 'bg-gray-500';
+        }
 
         return commit;
     });

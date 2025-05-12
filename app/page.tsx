@@ -8,6 +8,7 @@ import Timeline from '@/components/home/Timeline';
 import Filters from '@/components/home/Filters';
 import CommitDetails from '@/components/home/CommitDetails';
 import { applyFilters } from '@/lib/commitUtils';
+import { processCommits } from '@/lib/commitUtils';
 
 function Page() {
   const [commitCount, setCommitCount] = useState<number>(25);
@@ -23,7 +24,7 @@ function Page() {
 
   const authorList = commits.length > 0
     ? Array.from(new Set(commits
-      .map(commit => commit?.authors?.[0]?.name)
+      .map(commit => commit?.authors?.[0]?.name || "Unknown")
       .filter((name): name is string => Boolean(name))
     )).sort()
     : [];
@@ -77,11 +78,15 @@ function Page() {
         />
       </div>
       <div className="col-span-4 md:col-span-2 max-h-[300px] md:max-h-screen">
-        <Timeline
-          commits={filteredCommits}
-          onSelectCommit={handleSelectCommit}
-          selectedCommit={selectedCommit}
-        />
+        {
+          commits.length > 0 && (
+            <Timeline
+              commits={filteredCommits}
+              onSelectCommit={handleSelectCommit}
+              selectedCommit={processCommits([selectedCommit])[0] ?? selectedCommit}
+            />
+          )
+        }
       </div>
       <div className="col-span-4 md:col-span-1 relative">
         <CommitDetails

@@ -77,7 +77,7 @@ function Timeline({ commits, onSelectCommit, selectedCommit }: TimelineProps) {
                     key={commit.ref?.hash}
                     className={`relative px-8 py-2 cursor-pointer transition-all duration-300 ${selectedCommit?.ref?.hash === commit.ref?.hash ? 'bg-zinc-100' : 'bg-transparent'
                         } hover:bg-zinc-100`}
-                    onClick={() => onSelectCommit(commit)}
+                    onClick={() => onSelectCommit(processCommits([commit])[0])}
                 >
                     <span className="absolute w-0.5 h-full bg-zinc-300 top-0 left-8"></span>
                     <TooltipProvider>
